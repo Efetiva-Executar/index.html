@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparativo de Financiamentos |Efetiva Assessoria imobiliária </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #27ae60;
+            --text: #333;
+            --light-text: #6c757d;
+            --bg: #1a2639;
+            --card-bg: #ffffff;
+            --border: #e9ecef;
+            --santander: #ec0000;
+            --itau: #ff6900;
+            --bradesco: #cc092f;
+            --caixa: #0066cc;
+            --bb: #fed100;
+            --inter: #ff7a00;
+            --contact-bg: rgba(255, 255, 255, 0.1);
+            --logo-blue: #e98b08; /* Azul para a logo */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .logo span {
+            color: var(--logo-blue);
+        }
+
+        .logo-text {
+            color: white;
+        }
+
+        .header-title {
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .header-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            min-width: 150px;
+            color: white;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: white;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+        }
+
+        .banks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .bank-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .bank-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .bank-header {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .bank-info {
+            flex: 1;
+        }
+
+        .bank-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .bank-rate {
+            font-size: 0.95rem;
+            color: var(--light-text);
+        }
+
+        .bank-percentage {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .bank-body {
+            padding: 1.5rem;
+        }
+
+        .bank-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .bank-card.active .bank-details {
+            max-height: 2000px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 1rem 0 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .detail-label {
+            color: var(--light-text);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .faixa-item {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .faixa-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .faixa-desc {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        .toggle-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: var(--primary);
+        }
+
+        .toggle-icon {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .bank-card.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .highlight {
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .highlight-title {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .highlight-text {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        /* Bank specific colors */
+        .santander .bank-percentage,
+        .santander .toggle-btn {
+            background: var(--santander);
+        }
+
+        .itau .bank-percentage,
+        .itau .toggle-btn {
+            background: var(--itau);
+        }
+
+        .bradesco .bank-percentage,
+        .bradesco .toggle-btn {
+            background: var(--bradesco);
+        }
+
+        .caixa .bank-percentage,
+        .caixa .toggle-btn {
+            background: var(--caixa);
+        }
+
+        .bb .bank-percentage,
+        .bb .toggle-btn {
+            background: var(--bb);
+            color: #333;
+        }
+
+        .inter .bank-percentage,
+        .inter .toggle-btn {
+            background: var(--inter);
+        }
+
+        .contact-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--contact-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 12px;
+            color: white;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .banks-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-title {
+                font-size: 1.8rem;
+            }
+            
+            .bank-header {
+                padding: 1rem;
+            }
+            
+            .bank-name {
+                font-size: 1.2rem;
+            }
+            
+            .bank-percentage {
+                top: 1rem;
+                right: 1rem;
+            }
+            
+            .stats-container {
+                gap: 1rem;
+            }
+            
+            .stat-card {
+                min-width: 120px;
+                padding: 0.8rem;
+            }
+            
+            .stat-value {
+                font-size: 1.2rem;
+            }
+            
+            .contact-info {
+                position: static;
+                margin-top: 2rem;
+                background: rgba(255, 255, 255, 0.2);
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header-title {
+                font-size: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .stat-card {
+                min-width: 100px;
+                padding: 0.6rem;
+            }
+            
+            .stat-value {
+                font-size: 1rem;
+            }
+            
+            .stat-label {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bank-card {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .bank-card:nth-child(1) { animation-delay: 0.1s; }
+        .bank-card:nth-child(2) { animation-delay: 0.2s; }
+        .bank-card:nth-child(3) { animation-delay: 0.3s; }
+        .bank-card:nth-child(4) { animation-delay: 0.4s; }
+        .bank-card:nth-child(5) { animation-delay: 0.5s; }
+        .bank-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo"><span>Efetiva</span> <span class="logo-text">Assessoria Imobiliária</span></div>
+            <h1 class="header-title">Comparativo de Financiamentos Imobiliários</h1>
+            <p class="header-subtitle">As condições mais atualizadas dos principais bancos para você financiar seu imóvel com as melhores taxas do mercado</p>
+        </header>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-value">80%</div>
+                <div class="stat-label">Melhor Percentual</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">4,50%</div>
+                <div class="stat-label">Menor Taxa (MCMV)</div>
+            </div>
+        </div>
+
+        <div class="banks-container">
+            <!-- Santander -->
+            <div class="bank-card santander">
+                <div class="bank-header">
+                    <div class="bank-info">
+                        <div class="bank-name">Santander</div>
+                        <div class="bank-rate">Taxa a partir de 12,99% a.a.</div>
+                    </div>
+                    <div class="bank-percentage">80%</div>
+                </div>
+                <div class="bank-body">
+                    <div class="bank-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Percentual</span>
+                            <span class="detail-value">80%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modalidade</span>
+                            <span class="detail-value">SAC / PRICE</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Imóvel</span>
+                            <span class="detail-value">Novo e Usado</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Taxa Mínima</span>
+                            <span class="detail-value">12,99% a.a.</span>
+                        </div>
+                    </div>
+                    
+                    <button class="toggle-btn">
+                        <span class="toggle-text">Ver Detalhes</span>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Itaú -->
+            <div class="bank-card itau">
+                <div class="bank-header">
+                    <div class="bank-info">
+                        <div class="bank-name">Itaú</div>
+                        <div class="bank-rate">Taxa a partir de 12,39% a.a.</div>
+                    </div>
+                    <div class="bank-percentage">60-80%</div>
+                </div>
+                <div class="bank-body">
+                    <div class="bank-details">
+                        <div class="section-title">Cliente Agência</div>
+                        <div class="detail-item">
+                            <span class="detail-label">Percentual</span>
+                            <span class="detail-value">60%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Segmento</span>
+                            <span class="detail-value">Cliente Padrão</span>
+                        </div>
+                        
+                        <div class="section-title">Uniclass / Personnalité</div>
+                        <div class="detail-item">
+                            <span class="detail-label">Percentual</span>
+                            <span class="detail-value">70% - 80%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Requisito</span>
+                            <span class="detail-value">Bom relacionamento</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Taxa Mínima</span>
+                            <span class="detail-value">12,39% a.a.</span>
+                        </div>
+                    </div>
+                    
+                    <button class="toggle-btn">
+                        <span class="toggle-text">Ver Detalhes</span>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bradesco -->
+            <div class="bank-card bradesco">
+                <div class="bank-header">
+                    <div class="bank-info">
+                        <div class="bank-name">Bradesco</div>
+                        <div class="bank-rate">Taxa a partir de 13,50% a.a.</div>
+                    </div>
+                    <div class="bank-percentage">70%</div>
+                </div>
+                <div class="bank-body">
+                    <div class="bank-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Percentual</span>
+                            <span class="detail-value">70%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Taxa Mínima</span>
+                            <span class="detail-value">13,50% a.a.</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modalidade</span>
+                            <span class="detail-value">SAC / PRICE</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Imóvel</span>
+                            <span class="detail-value">Novo e Usado</span>
+                        </div>
+                    </div>
+                    
+                    <button class="toggle-btn">
+                        <span class="toggle-text">Ver Detalhes</span>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Caixa -->
+            <div class="bank-card caixa">
+                <div class="bank-header">
+                    <div class="bank-info">
+                        <div class="bank-name">Caixa </div>
+                        <div class="bank-rate">Taxa a partir de 4,50% a.a. (MCMV)</div>
+                    </div>
+                    <div class="bank-percentage">50-80%</div>
+                </div>
+                <div class="bank-body">
+                    <div class="bank-details">
+                        <div class="section-title">MCMV - Faixa 1 e 2</div>
+                        <div class="detail-item">
+                            <span class="detail-label">Percentual</span>
+                            <span class="detail-value">80%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Imóvel</span>
+                            <span class="detail-value">Novo e Usado</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modalidade</span>
+                            <span class="detail-value">SAC / PRICE</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Taxa</span>
+                            <span class="detail-value">A partir de 4,50%</span>
+                        </div>
+                        
+                        <div class="section-title">MCMV - Faixa 3 (Usado)</div>
+                        <div class="detail-item">
+                            <span class="detail-label">Percentual</span>
+                            <span class="detail-value">65%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modalidade</span>
+                            <span class="detail-value">SAC / PRICE</span>
+                        </div>
+                        
+                        <div class="section-title">MCMV - Faixa 3 (Novo)</div>
+                        <div class="detail-item">
+                            <span class="detail-label">Percentual</span>
+                            <span class="detail-value">80%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modalidade</span>
+                            <span class="detail-value">SAC / PRICE</span>
+                        </div>
+
+                         <div class="section-title">Classe média/Faixa 4 (Usado)</div>
+                        <div class="detail-item">
+                            <span class="detail-label">Percentual</span>
+                            <span class="detail-value">60%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modalidade</span>
+                            <span class="detail-value">SAC / PRICE</span>
+                        </div>
+                        
+                        <div class="section-title">Classe média/Faixa 4 (Novo)</div>
+                        <div class="detail-item">
+                            <span class="detail-label">Percentual</span>
+                            <span class="detail-value">80%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modalidade</span>
+                            <span class="detail-value">SAC / PRICE</span>
+                        </div>
+                        
+                        <div class="section-title">SBPE</div>
+                        <div class="detail-item">
+                            <span class="detail-label">SAC</span>
+                            <span class="detail-value">70% (Novo e Usado)</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">PRICE</span>
+                            <span class="detail-value">50% (Novo e Usado)</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Taxa TR</span>
+                            <span class="detail-value">11,49% a.a.</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Taxa Poupança</span>
+                            <span class="detail-value">10,76% a.a.</span>
+                        </div>
+                        
+                        <div class="highlight">
+                            <div class="highlight-title">Faixas de Renda</div>
+                            <div class="faixa-item">
+                                <div class="faixa-title">Faixa 1</div>
+                                <div class="faixa-desc">Renda bruta familiar até R$ 2.160,00 até 2.850,00</div>
+                            </div>
+                            <div class="faixa-item">
+                                <div class="faixa-title">Faixa 2</div>
+                                <div class="faixa-desc">Renda bruta familiar de R$ 2.850,01 a R$ 4.700,00</div>
+                            </div>
+                            <div class="faixa-item">
+                                <div class="faixa-title">Faixa 3</div>
+                                <div class="faixa-desc">Renda bruta familiar de R$ 4.700,01 a R$ 8.600,00</div>
+                            </div>
+                            <div class="faixa-item">
+                                <div class="faixa-title">Classe média/Faixa 4</div>
+                                <div class="faixa-desc">Renda bruta familiar de R$ 8.600,01 a R$ 12.000,00</div>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight">
+                            <div class="highlight-title">Tetos para Sapucaia do Sul</div>
+                            <div class="faixa-item">
+                                <div class="faixa-title">Faixa 1 e 2 (NOVO e USADO)</div>
+                                <div class="faixa-desc">R$ 225.000,00</div>
+                                <div class="faixa-title">Faixa 3 (USADO)</div>
+                                <div class="faixa-desc">R$ 270.000,00</div>
+                                <div class="faixa-title">Faixa 3 (NOVO)</div>
+                                <div class="faixa-desc">R$ 350.000,00</div>
+                                <div class="faixa-title">Classe média (NOVO e USADO)</div>
+                                <div class="faixa-desc">R$ 500.000,00</div>
+                            </div>
+                             <div class="faixa-item">
+                                <div class="faixa-title">teste (NOVO e USADO)</div>
+                                <div class="faixa-desc">R$ 500.000,00</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="toggle-btn">
+                        <span class="toggle-text">Ver Detalhes</span>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Banco do Brasil -->
+            <div class="bank-card bb">
+                <div class="bank-header">
+                    <div class="bank-info">
+                        <div class="bank-name">Banco do Brasil</div>
+                        <div class="bank-rate">Taxa a partir de 15% a.a.</div>
+                    </div>
+                    <div class="bank-percentage">70-80%</div>
+                </div>
+                <div class="bank-body">
+                    <div class="bank-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Percentual</span>
+                            <span class="detail-value">70% - 80%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Taxa Mínima</span>
+                            <span class="detail-value">15% a.a. (apenas para correntistas)</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modalidade</span>
+                            <span class="detail-value">SAC / PRICE</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Imóvel</span>
+                            <span class="detail-value">Novo e Usado</span>
+                        </div>
+                    </div>
+                    
+                    <button class="toggle-btn">
+                        <span class="toggle-text">Ver Detalhes</span>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Inter -->
+            <div class="bank-card inter">
+                <div class="bank-header">
+                    <div class="bank-info">
+                        <div class="bank-name">Banco Inter</div>
+                        <div class="bank-rate">Taxa a partir de 11,50% a.a.</div>
+                    </div>
+                    <div class="bank-percentage">75%</div>
+                </div>
+                <div class="bank-body">
+                    <div class="bank-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Percentual</span>
+                            <span class="detail-value">75%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Taxa Mínima</span>
+                            <span class="detail-value">11,50% a.a.</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modalidade</span>
+                            <span class="detail-value">SAC / PRICE</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Índice de correção</span>
+                            <span class="detail-value">IPC</span>
+                        </div>
+                    </div>
+                    
+                    <button class="toggle-btn">
+                        <span class="toggle-text">Ver Detalhes</span>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <div class="contact-title">Contato</div>
+            <p>https://wa.me/5551994254390</p>
+            <p>https://wa.me/5551981772427</p>
+            <p>https://wa.me/5551994621069</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bankCards = document.querySelectorAll('.bank-card');
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            
+            // Toggle card expansion on button click only
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const card = this.closest('.bank-card');
+                    const isActive = card.classList.contains('active');
+                    
+                    // Close all cards first
+                    bankCards.forEach(c => {
+                        c.classList.remove('active');
+                        const btn = c.querySelector('.toggle-btn');
+                        btn.querySelector('.toggle-text').textContent = 'Ver Detalhes';
+                        btn.querySelector('.toggle-icon').className = 'fas fa-chevron-down toggle-icon';
+                    });
+                    
+                    // Toggle current card if it wasn't active
+                    if (!isActive) {
+                        card.classList.add('active');
+                        this.querySelector('.toggle-text').textContent = 'Mostrar menos';
+                        this.querySelector('.toggle-icon').className = 'fas fa-chevron-up toggle-icon';
+                    }
+                });
+            });
+            
+            // Close cards when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.bank-card')) {
+                    bankCards.forEach(card => {
+                        card.classList.remove('active');
+                        const btn = card.querySelector('.toggle-btn');
+                        btn.querySelector('.toggle-text').textContent = 'Ver Detalhes';
+                        btn.querySelector('.toggle-icon').className = 'fas fa-chevron-down toggle-icon';
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
